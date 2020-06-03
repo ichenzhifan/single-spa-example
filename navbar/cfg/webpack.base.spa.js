@@ -20,7 +20,7 @@ const getBaseConfig = ({ devMode }) => {
       filename: 'navbar.js',
       library: 'navbar',
       libraryTarget: 'amd',
-      path: path.resolve(__dirname, 'build/navbar'),
+      path: path.resolve(__dirname, '../../build/navbar'),
     },
     module: {
       rules: [

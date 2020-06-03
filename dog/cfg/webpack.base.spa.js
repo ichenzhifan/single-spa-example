@@ -20,7 +20,7 @@ const getBaseConfig = ({ devMode }) => {
       filename: 'dog.js',
       library: 'dog',
       libraryTarget: 'amd',
-      path: path.resolve(__dirname, 'build/dog'),
+      path: path.resolve(__dirname, '../../build/dog'),
     },
     module: {
       rules: [

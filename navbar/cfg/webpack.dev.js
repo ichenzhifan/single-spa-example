@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 
+const WriteFilePlugin = require('write-file-webpack-plugin');
+
 const devConfig = {
   devtool: "source-map",
   mode: "development",
@@ -19,7 +21,10 @@ const devConfig = {
       "Access-Control-Allow-Origin": "*",
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new WriteFilePlugin()
+  ]
 };
 
 module.exports = devConfig;

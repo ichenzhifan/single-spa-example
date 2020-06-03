@@ -19,7 +19,7 @@ const getBaseConfig = ({ devMode }) => {
       filename: 'cat.js',
       library: 'cat',
       libraryTarget: 'amd',
-      path: path.resolve(__dirname, 'build/cat'),
+      path: path.resolve(__dirname, '../../build/cat'),
     },
     module: {
       rules: [

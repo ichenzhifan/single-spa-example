@@ -10,13 +10,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devConfig = require('./webpack.dev');
 const proConfig = require('./webpack.pro');
 
-const getBaseConfig = ({ devMode }) => {
+const getBaseConfig = ({ devMode, version }) => {
   return {
     entry: {
       main: ['./src/index.spa.js']
     },   
     output: {
-      filename: 'cat.js',
+      filename: `cat-${version}.js`,
       library: 'cat',
       libraryTarget: 'amd',
       path: path.resolve(__dirname, '../../build/cat'),
@@ -98,14 +98,16 @@ module.exports = (env = {}) => {
   if (production) {
     return merge(
       getBaseConfig({
-        devMode: false
+        devMode: false,
+        ...env
       }),
       proConfig
     );
   } else {
     return merge(
       getBaseConfig({
-        devMode: true
+        devMode: true,
+        ...env
       }),
       devConfig
     );

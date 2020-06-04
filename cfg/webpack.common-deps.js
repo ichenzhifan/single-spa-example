@@ -8,7 +8,7 @@ module.exports = (env = {}) => {
   return {
     entry: './src/common-deps.js',
     output: {
-      filename: 'common-deps.js',
+      filename: `common-deps-${env.version}.js`,
       path: path.resolve(__dirname, '../build/common-deps'),
       chunkFilename: '[name].js',
     },
@@ -25,7 +25,8 @@ module.exports = (env = {}) => {
     devtool: 'sourcemap',
     plugins: [
       new webpack.DefinePlugin({
-        __DEVMODE__: !env.production
+        __DEVMODE__: !env.production,
+        __VERSION__: JSON.stringify(env.version)
       }),
       new CleanWebpackPlugin(['../build/common-deps/'])
     ],

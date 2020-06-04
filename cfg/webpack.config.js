@@ -1,16 +1,17 @@
 /* eslint-env node */
 const webpack = require('webpack')
 const path = require('path');
+const ejs = require('ejs');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env = {}) => {
-  console.log('----evn.production', env.production);
+  console.log('----evn.production', env.production, env.version);
 
   return {
     entry: './src/config.js',
     output: {
-      filename: 'config.js',
+      filename: `config-${env.version}.js`,
       library: 'config',
       libraryTarget: 'amd',
       path: path.resolve(__dirname, '../build'),
@@ -66,16 +67,22 @@ module.exports = (env = {}) => {
         __DEVMODE__: !env.production
       }),
       CopyWebpackPlugin([
-        {from: path.resolve(__dirname, '../src/index.html')},
-        // {from: path.resolve(__dirname, 'src/styles.css')},
+        {
+          from: path.resolve(__dirname, '../src/index.html'),
+
+          // 将模板中的字符串动态的替换为真实的值.
+          transform: (content) => {
+            const s = content.toString();
+            return ejs.render(s, { VERSION: env.version });
+          }
+        }
       ]),
-      // new CleanWebpackPlugin(['build']),
+
     ],
     devtool: 'source-map',
     externals: [
       /^lodash$/,
-      /^single-spa$/,
-      /^rxjs\/?.*$/,
+      /^single-spa$/
     ],
   };
 }

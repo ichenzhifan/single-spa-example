@@ -3,16 +3,20 @@ const args = require('minimist')(process.argv.slice(2));
 const shell = require('shelljs');
 const path = require('path');
 
-const fs = require('fs');
-
+const fs = require('fs-extra');
 const { prompt } = require('enquirer');
 const { env = {} } = args;
+const {
+  getVersion,
+  clearVersion
+} = require('./verson');
+let _CURRENT_VERSION_ = 0;
 
 // 不需要单独build的项目列表.
 const excludedList = [
-  'build', 
-  'cfg', 
-  'node_modules', 
+  'build',
+  'cfg',
+  'node_modules',
   'src'
 ];
 
@@ -21,14 +25,11 @@ const getProjectsList = () => {
   return fs
     .readdirSync(path.resolve(__dirname))
     .filter(v => excludedList.indexOf(v) === -1 || !v.startsWith('.'))
-    .concat(rootProjects);
+    .concat(rootProjects)
+    .concat(['clearVersion']);
 };
 const isRootProject = project => {
   return rootProjects.indexOf(project) !== -1;
-}
-
-const isCommonDeps = project => {
-  return project === 'common-deps';
 }
 
 const getProject = () => {
@@ -53,11 +54,11 @@ const getCmd = project => {
   // "start:navbar": "cd ./navbar/ && webpack-dev-server --config ./cfg/webpack.base.spa.js --port 8235",
   // "build:navbar": "cd ./navbar/ && webpack --env.production --config ./cfg/webpack.base.spa.js",
   const webpack = production
-    ? 'webpack --env.production'
-    : 'webpack-dev-server';
+    ? `webpack --env.production --env.version=${_CURRENT_VERSION_}`
+    : `webpack-dev-server --env.version=${_CURRENT_VERSION_}`;
   const langs = cn ? '--env.cn' : '';
   const isRoot = isRootProject(project);
-  
+
   // config, deps
   if (isRoot) {
     const rootWebpackConfigPath = `./cfg/webpack.${production ? project : `${project}.dev`}.js`;
@@ -70,21 +71,27 @@ const getCmd = project => {
   return production ? cmd : `${cmd} --port ${port}`;
 };
 
-const beforeBuild = async (project) => { };
+const beforeBuild = async (project) => {
+  _CURRENT_VERSION_ = getVersion();
+};
 
 const afterBuild = async () => { };
 
 const run = async () => {
   const project = getProject();
-  console.log('project', project);
+
+  if (project === 'clearVersion') {
+    clearVersion();
+    return;
+  }
 
   const execCmd = async project => {
+    await beforeBuild(project);
+
     const cmd = getCmd(project);
     console.log('执行的环境是', env);
     console.log('执行的命令是', cmd);
-
-    await beforeBuild(project);
-
+    
     // 执行命令.
     shell.exec(cmd);
 

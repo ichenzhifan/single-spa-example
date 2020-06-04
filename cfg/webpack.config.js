@@ -6,8 +6,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env = {}) => {
-  console.log('----evn.production', env.production, env.version);
-
   return {
     entry: './src/config.js',
     output: {
@@ -19,7 +17,7 @@ module.exports = (env = {}) => {
     mode: 'production',
     module: {
       rules: [
-        {parser: {System: false}},
+        { parser: { System: false } },
         {
           test: /\.js?$/,
           exclude: [path.resolve(__dirname, 'node_modules')],

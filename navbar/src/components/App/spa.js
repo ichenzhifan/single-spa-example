@@ -48,6 +48,7 @@ class App extends Component {
                     )
                   })
                 }
+                <a>{this.props.clock}</a>
               </div>
             )
         }

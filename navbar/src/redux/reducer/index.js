@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import todo from './todo';
+import clock from './clock';
 
 export default combineReducers({
-  todo
+  clock
 });

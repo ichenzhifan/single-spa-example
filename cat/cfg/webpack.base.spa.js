@@ -13,10 +13,11 @@ const proConfig = require('./webpack.pro');
 const getBaseConfig = ({ devMode, version }) => {
   return {
     entry: {
-      main: ['./src/index.spa.js']
+      cat: './src/index.spa.js',
+      store: './src/store.js'
     },   
     output: {
-      filename: `cat-${version}.js`,
+      filename: `[name]-${version}.js`,
       library: 'cat',
       libraryTarget: 'amd',
       path: path.resolve(__dirname, '../../build/cat'),

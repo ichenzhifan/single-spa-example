@@ -14,10 +14,11 @@ const proConfig = require('./webpack.pro');
 const getBaseConfig = ({ devMode, version }) => {
   return {
     entry: {
-      main: ['./src/index.spa.js']
+      navbar: './src/index.spa.js',
+      store: './src/store.js'
     },
     output: {
-      filename: `navbar-${version}.js`,
+      filename: `[name]-${version}.js`,
       library: 'navbar',
       libraryTarget: 'amd',
       path: path.resolve(__dirname, '../../build/navbar'),

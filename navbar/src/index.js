@@ -1,16 +1,11 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
-import rootReducer from './redux/reducer';
-import createStore from './redux/store';
-import app from './components/App';
-
-const store = createStore(rootReducer);
-const App = hot(app);
+import App from './components/App';
+import { storeInstance } from './store';
 
 ReactDom.render(
-  <Provider store={store}>
+  <Provider store={storeInstance}>
     <App />
   </Provider>,
   document.querySelector('#app')

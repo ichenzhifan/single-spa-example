@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import {get} from 'lodash';
 
-const todos = state => get(state, 'todo');
-const getTodos = createSelector(todos, data => data);
+const clock = state => get(state, 'clock');
+const getClock = createSelector(clock, data => data);
 
 export const mapStateToProps = state => ({
-  todos: getTodos(state)
+  clock: getClock(state)
 });

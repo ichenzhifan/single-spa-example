@@ -1,5 +1,5 @@
-import todo from './todo';
+import clock from './clock';
 
 export default {
-  ...todo
+  ...clock
 };

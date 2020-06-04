@@ -1,8 +1,40 @@
 import * as isActive from './activityFns.js'
 import * as singleSpa from 'single-spa'
 
-singleSpa.registerApplication('navbar', () => SystemJS.import('@portal/navbar'), isActive.navbar)
-singleSpa.registerApplication('cat', () => SystemJS.import('@portal/cat'), isActive.cat)
-singleSpa.registerApplication('dog', () => SystemJS.import('@portal/dog'), isActive.dog)
+import { GlobalEventDistributor } from './globalEventDistributor'
+import { loadApp } from './helper'
 
-singleSpa.start()
+async function init() {
+  const globalEventDistributor = new GlobalEventDistributor(singleSpa);
+  const loadingPromises = [];
+
+  loadingPromises.push(loadApp({
+    name: 'navbar',
+    actived: isActive.navbar,
+    appURL: '@portal/navbar',
+    storeURL: '@portal/navbar-store',
+    globalEventDistributor
+  }));
+
+  loadingPromises.push(loadApp({
+    name: 'cat',
+    actived: isActive.cat,
+    appURL: '@portal/cat',
+    storeURL: '@portal/cat-store',
+    globalEventDistributor
+  }));
+
+  loadingPromises.push(loadApp({
+    name: 'dog',
+    actived: isActive.dog,
+    appURL: '@portal/dog',
+    storeURL: '@portal/dog-store',
+    globalEventDistributor
+  }));
+
+  await Promise.all(loadingPromises);
+
+  singleSpa.start()
+}
+
+init();

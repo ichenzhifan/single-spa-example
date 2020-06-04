@@ -8,8 +8,8 @@ const devConfig = {
   mode: "development",
   devServer: {
     contentBase: "./dist", //资源文件目录
-    open: true, //自动打开浏览器
-    hot: true,
+    open: false, //自动打开浏览器
+    hot: false,
     port: 8081, //服务器端口,
     hotOnly: true,
     proxy: {

@@ -1,5 +1,5 @@
 /* eslint-env node */
-const config = require('./webpack.common-deps.config.js');
+const config = require('./webpack.common-deps.js');
 const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 

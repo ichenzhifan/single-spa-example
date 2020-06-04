@@ -13,7 +13,7 @@ module.exports = (env = {}) => {
       filename: 'config.js',
       library: 'config',
       libraryTarget: 'amd',
-      path: path.resolve(__dirname, 'build'),
+      path: path.resolve(__dirname, '../build'),
     },
     mode: 'production',
     module: {
@@ -66,7 +66,7 @@ module.exports = (env = {}) => {
         __DEVMODE__: !env.production
       }),
       CopyWebpackPlugin([
-        {from: path.resolve(__dirname, 'src/index.html')},
+        {from: path.resolve(__dirname, '../src/index.html')},
         // {from: path.resolve(__dirname, 'src/styles.css')},
       ]),
       // new CleanWebpackPlugin(['build']),

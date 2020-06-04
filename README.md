@@ -52,3 +52,6 @@ I'm unable to help others implement deployments at this time. For specific deplo
 ### Conceptual model:
 
 [deployment-conceptual-model.pdf](https://gitlab.com/TheMcMurder/single-spa-portal-example/blob/master/conceptual-model.pdf)
+
+### recommended-setup
+https://single-spa.js.org/docs/recommended-setup/#build-tools-webpack--rollup

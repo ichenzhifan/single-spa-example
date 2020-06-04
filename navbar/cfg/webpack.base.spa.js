@@ -88,6 +88,7 @@ const getBaseConfig = ({ devMode }) => {
       /^react-dom$/,
       /.*react-dom.*/,
     ],
+    
   };
 };
 

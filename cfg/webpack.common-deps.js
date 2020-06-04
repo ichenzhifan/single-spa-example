@@ -9,7 +9,7 @@ module.exports = (env = {}) => {
     entry: './src/common-deps.js',
     output: {
       filename: 'common-deps.js',
-      path: path.resolve(__dirname, 'build/common-deps'),
+      path: path.resolve(__dirname, '../build/common-deps'),
       chunkFilename: '[name].js',
     },
     mode: 'production',
@@ -27,10 +27,7 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({
         __DEVMODE__: !env.production
       }),
-      new CleanWebpackPlugin(['build/common-deps/']),
-      CopyWebpackPlugin([
-        { from: path.resolve(__dirname, 'src/common-deps.js') }
-      ]),
+      new CleanWebpackPlugin(['../build/common-deps/'])
     ],
     module: {
       rules: [
